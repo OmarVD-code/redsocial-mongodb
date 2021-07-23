@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ImgShare</title>
+
+	<!--  BOOTSTRAP 4 -->
+	<!-- link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    /> -->
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="/public/css/styles.css">
+
+	<!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+
+</head>
+<body>
+
+	{{> navigation }}
+
+	<div class="container p-4">
+		<div class="row">
+			<div class="col-md-8">
+				{{{ body }}}
+			</div>
+
+			<div class="col-md-4">
+				{{> stats }}
+				{{> popular }}
+				{{> comments }}
+			</div>
+		</div>
+
+		
+	</div>
+	
+	<!-- JQUERY -->
+	<script 
+		src="https://code.jquery.com/jquery-3.6.0.js" 
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+		crossorigin="anonymous">
+	</script>
+
+	<!-- CUSTOM CODE -->
+	<script src="/public/js/scripts.js"></script>
+
+</body>
+</html>
