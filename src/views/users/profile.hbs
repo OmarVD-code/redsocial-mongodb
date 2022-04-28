@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card mx-auto bg-dark text-white">
+      <img src="../../public/upload/{{ user.avatar }}" class="card-img-top" alt="{{ user.name }}">
+      <div class="card-body">
+        <h5 class="card-title">About me</h5>
+        <p class="card-text">Username: {{ user.name }}</p>
+        <p class="card-text">Email: {{ user.email }}</p>
+        <p class="card-text">Since: {{ timeago user.date }}</p>
+        <!-- MODAL EDIT INFORMATION -->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editData">
+          Edit <i class="fas fa-pen"></i>
+        </button>
+        <!-- Modal -->
+        <div class="modal fade text-dark" id="editData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/users/profile/{{ user._id }}/edit" method="POST" enctype="multipart/form-data">
+            			<div class="form-group">
+            				<input type="text" class="form-control" name="name" placeholder="Edit your name" value="{{ user.name }}" required>
+            			</div>
+            			<div class="form-group">
+            				<input type="email" class="form-control" name="email" placeholder="Edit your email" value="{{ user.email }}" required>
+            			</div>
+                  <div class="form-group">
+                    <div class="input-group">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" name="image" id="inputGroupFile" aria-describedBy="inputGroupFileAddon" accept="image/x-png,image/jpg,image/jpeg">
+                          <label class="custom-file-label" for="inputGroupFile">Change your photo (optional)</label>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+            				<button type="submit" class="btn btn-primary float-right">Save changes</button>
+            			</div>
+            		</form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <!-- RENDERIZAMOS LAS IMÁGENES QUE POSTEÓ EL USUARIO -->
+    <div class="card">
+    	<div class="card-header bg-dark text-white">
+    		<h3 class="card-title"></i> Your posts</h3>
+    	</div>
+    	<div class="card-body">
+    		<div class="row">
+    			{{#if images}}
+            {{#each images}}
+        			<div class="col-md-4 mb-4">
+        				<a href="/images/{{ uniqueId }}">
+        					<img class="img-fluid w-100 h-100" src="/public/upload/{{ filename }}" alt="Imagen">
+        				</a>
+        			</div>
+      			{{/each}}
+          {{else}}
+            <img src="/public/img/no-posts-yet.png" class="w-25 h-25 mx-auto" alt="You haven't posted anything yet.">
+          {{/if}}
+    		</div>
+    	</div>
+    </div>
+    <!-- MOSTRAMOS LOS COMENTARIOS REALIZADOS POR EL USUARIO -->
+    <div class="card mt-2">
+    	<div class="card-header bg-dark text-white">
+    		<h3 class="card-title">Your Comments</h3>
+    	</div>
+    	<div class="card-body">
+    		<ul class="list-group">
+    			{{#if comments}}
+            {{#each comments}}
+        			<li class="list-group-item">
+        				<div class="row">
+        					<div class="col-md-4 text-center">
+        						<img src="../../public/upload/{{image.filename}}" width="50%" height="auto" alt="Avatar">
+        					</div>
+        					<blockquote class="col-md-8">
+        						<p class="lead" style="color: black">{{ comment }}</p>
+        						<footer class="blockquote-footer">
+        							{{ timeago date }}
+        						</footer>
+        					</blockquote>
+        				</div>
+        			</li>
+      			{{/each}}
+          {{else}}
+          <img src="/public/img/no-comments-yet.png" class="w-25 h-25 mx-auto" alt="You haven't commented yet">
+          {{/if}}
+    		</ul>
+    	</div>
+    </div>
+  </div>
+</div>

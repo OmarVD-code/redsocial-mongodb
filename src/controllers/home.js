@@ -18,8 +18,6 @@ ctrl.index = async (req, res) => {
             viewModel.images = context.images;
 		});
         viewModel = await sidebar(viewModel);
-        console.log(viewModel.images);
-        console.log(viewModel.sidebar);
         res.render('index', viewModel);
 }
 

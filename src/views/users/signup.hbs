@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="card mt-4 text-center">
+            <div class="card-header bg-dark text-white text-center">
+                <h2>Account Register</h2>
+            </div>
+            <div class="card-body">
+                <form action="/users/signup" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Enter your name" value="{{name}}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Enter your email" value="{{email}}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password" value="{{password}}" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="confirm_password" placeholder="Confirm your password" value="{{confirm_password}}" required>
+                    </div>
+                    <div class="form-group mb-0">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <a href="/users/signin">Already have an account?</a>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

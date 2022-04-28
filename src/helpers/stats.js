@@ -17,6 +17,7 @@ async function imageTotalViewsCounter(){
 	}]);
 
 	return result[0].viewsTotal;
+	// return 0;
 }
 
 async function imageTotalLikesCounter(){
@@ -28,10 +29,11 @@ async function imageTotalLikesCounter(){
 	}]);
 
 	return result[0].likesTotal;
+	// return 0;
 }
 
 module.exports = async () => {
-	const result = await Promise.all([
+	const result = await Promise.all([ // Promise.all ejecuta las funciones en paralelo
 			imageCounter(),
 			commentsCounter(),
 			imageTotalViewsCounter(),

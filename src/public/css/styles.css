@@ -1,7 +1,11 @@
+body {
+	background-color: #dcdde1;
+}
+
 .navbar-brand img {
 	width: 70%;
 }
 
-body {
-	background-color: #dcdde1;
+.card-footer small a {
+	text-decoration: none;
 }

@@ -1,4 +1,4 @@
-{{#if sidebar.comments}}
+{{#if sidebar.comments }}
 <div class="card mt-2">
 	<div class="card-header bg-dark text-white">
 		<h5>
@@ -17,7 +17,7 @@
 				<blockquote class="w-100">
 					<p>{{ comment }}</p>
 					<footer class="blockquote-footer">
-						<span>{{ name }}</span>
+						<span>{{ author.name }}</span>
 						<span>{{ timeago date }}</span>
 					</footer>
 				</blockquote>

@@ -1,4 +1,5 @@
-<div class="card">
+{{#if user}}
+<div class="card mb-4">
 	<div class="card-header bg-dark">
 		<h3 class="card-title text-white">
 			<i class="far fa-image"></i> Upload an Image
@@ -10,7 +11,7 @@
 			<div class="form-group">
 				<div class="input-group">
   					<div class="custom-file">
-    					<input type="file" class="custom-file-input" name="image" id="inputGroupFile" aria-describedBy="inputGroupFileAddon" required>
+    					<input type="file" class="custom-file-input" name="image" id="inputGroupFile" aria-describedBy="inputGroupFileAddon" accept="image/x-png,image/gif,image/jpeg" required>
     					<label class="custom-file-label" for="inputGroupFile">Choose file</label>
   					</div>
 				</div>
@@ -32,9 +33,10 @@
 		</form>
 	</div>
 </div>
+{{/if}}
 
 <!--  RENDERIZANDO IMÁGENES -->
-<div class="card mt-2">
+<div class="card">
 	<div class="card-header bg-dark text-white">
 		<h3><i class="far fa-images"></i> Recent Uploads</h3>
 	</div>
@@ -42,13 +44,11 @@
 		<div class="row">
 			{{#each images}}
 			<div class="col-md-4 mb-4">
-				<!-- <p class="lead font-weight-bold text-center">{{ title }}</p> -->
 				<a href="/images/{{ uniqueId }}">
-					<img class="img-thumbnail h-100 w-100" src="/public/upload/{{ filename }}" alt="Imagen">
+					<img class="img-fluid w-100 h-100" src="/public/upload/{{ filename }}" alt="Imagen">
 				</a>
-				<!-- <p>{{ description }}</p> -->			
 			</div>
 			{{/each}}
 		</div>
-	</div>	
+	</div>
 </div>

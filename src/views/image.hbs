@@ -1,79 +1,134 @@
 <div class="card bg-dark text-white">
 	<div class="card-header d-flex justify-content-between align-items-center">
-		<h2 class="card-title">{{ image.title }}</h2>
-		<button class="btn btn-danger btn-sm" id="btn-delete" data-id="{{ image.uniqueId }}">
-			<i class="fas fa-times"></i> Delete
-		</button>
-	</div>
+		<div class="div">
+			<h2 class="card-title">{{ image.title }}</h2>
+			{{#if isAuthor}}
+				<p>Posted by you</p>
+			{{else}}
+				<p>Posted by {{ image_author }}</p>
+			{{/if}}
+		</div>
+		{{#if isAuthor}}
+		<div>
+			<button type="button" class="btn btn-primary mr-3" id="btn-edit" data-toggle="modal" data-target="#editPost">
+				<i class="fas fa-pen"> Edit</i>
+			</button>
+			<!-- Modal -->
+			<div class="modal fade text-dark" id="editPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Edit your post</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <form>
+								<div class="form-group">
+									<input type="text" class="form-control" name="title" placeholder="Edit title" value="{{ image.title }}" required>
+								</div>
+								<div class="form-group">
+									<textarea name="description" class="form-control" placeholder="Edit description" rows="4" required>{{ image.description }}</textarea>
+								</div>
+								<div class="form-group">
+									<button class="btn btn-primary float-right" id="btn-edit-post" data-id="{{ image.uniqueId }}">Save changes</button>
+								</div>
+			        </form>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<button class="btn btn-danger" id="btn-delete" data-id="{{ image.uniqueId }}">
+				<i class="fas fa-trash"> Delete</i>
+			</button>
+		</div>
+		{{/if}}
 
+	</div>
 	<div class="card-body">
-		<p>{{ image.description }}</p>
 		<div class="text-center">
 			<img src="/public/upload/{{ image.filename }}" alt="{{ image.title }}" class="img-fluid">
-		</div>	
+			<p class="text-justify mt-5">{{ image.description }}</p>
+		</div>
 	</div>
-
 	<div class="card-footer d-flex justify-content-between align-items-center">
-		<button class="btn btn-success" id="btn-like" data-id="{{ image.filename }}">
-			<i class="fas fa-thumbs-up"></i> Like
-		</button>
-		<p>
+		{{#if user}}
+			{{#if isAlreadyLiked}}
+				<button class="btn btn-dark" id="btn-like" data-id="{{ image.filename }}" title="Ya no me gusta">
+					<i class="fas fa-thumbs-up"></i>
+				</button>
+			{{else}}
+				<button class="btn btn-dark" id="btn-like" data-id="{{ image.filename }}" title="Me gusta">
+					<i class="far fa-thumbs-up"></i>
+				</button>
+			{{/if}}
+		{{else}}
+			<a class="btn btn-dark" href="/users/signin" title="You must login to give a like">
+				<i class="far fa-thumbs-up"></i>
+			</a>
+		{{/if}}
+		<p class="my-auto">
 			<span class="likes-count">{{ image.likes }}</span>
 			<i class="fas fa-heart"></i>
 		</p>
-		<p>
-			<i class="fas fa-eye"></i> {{ image.views }}	
+		<p class="my-auto">
+			<i class="fas fa-eye"></i> {{ image.views }}
 		</p>
-		<p>
+		<p class="my-auto">
 			<i class="fas fa-clock"></i> {{ timeago image.timestamp }}
 		</p>
-	</div>	
+	</div>
 </div>
 
 <!-- COMMENTS -->
 <div class="card mt-2 bg-dark text-white">
 	<div class="card-header d-flex justify-content-between align-items-center">
 		<h3 class="card-title">Comments</h3>
+		{{#if user}}
 		<button class="btn btn-info" id="btn-toggle-comment">
 			<i class="fas fa-comments-o"></i> Post a Comment
 		</button>
+		{{ else }}
+		<a class="btn btn-info" href="/users/signin" title="You must login to post a comment">
+			<i class="fas fa-comments-o"></i> Post a Comment
+		</a>
+		{{/if}}
 	</div>
 	<div class="card-body">
 		<blockquote id="post-comment">
-			<form action="/images/{{ image.uniqueId }}/comment" method="POST">
-				<div class="form-group">
-					<input type="text" class="form-control" name="name" placeholder="Your Name">
-					<!-- bg-dark text-light border border-success -->
-				</div>
-				<div class="form-group">
-					<input type="email" class="form-control" name="email" placeholder="Your Email">
-				</div>
-				<div class="form-group">
-					<textarea name="comment" class="form-control" placeholder="Your Comment"></textarea>
-				</div>
-				<div class="form-group">
-					<button class="btn btn-outline-success" id="btn-comment">
-						<i class="fas fa-comment"></i> Post
-					</button>
-				</div>
-			</form>
+				<form action="/images/{{ image.uniqueId }}/{{ user._id }}/comment" method="POST">
+					<div class="form-group">
+						<textarea name="comment" class="form-control" rows="4" placeholder="Your Comment"></textarea>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-outline-success" id="btn-comment" type="submit">
+							<i class="fas fa-comment"></i> Post
+						</button>
+					</div>
+				</form>
 		</blockquote>
 		<ul class="list-group p-4">
-			{{#each comments}}
-			<li class="list-group-item">
-				<div class="row">
-					<a href="#" class="col text-center">
-						<img src="http://gravatar.com/avatar/{{ gravatar }}?d=monsterid&s=45" alt="">
-					</a>
-					<blockquote class="col">  
-						<p class="lead" style="color: black">{{ comment }}</p>
-						<footer class="blockquote-footer">
-							{{ name }} - {{ timeago date }}
-						</footer>
-					</blockquote>
-				</div>
-			</li>
-			{{/each}}
+			{{#if comments}}
+				{{#each comments}}
+					<li class="list-group-item">
+						<div class="row">
+							<div class="col-md-4 text-center">
+								<img src="/public/upload/{{ author.avatar }}" class="rounded-circle" width="100px" height="100px" alt="Avatar">
+							</div>
+							<blockquote class="col-md-8">
+								<p class="lead" style="color: black">{{ comment }}</p>
+								<footer class="blockquote-footer">
+									{{ author.name }} - {{ timeago date }}
+								</footer>
+							</blockquote>
+						</div>
+					</li>
+				{{/each}}
+			{{else}}
+				<p class="mx-auto">No comments yet. Be the first one</p>
+				<img src="/public/img/no-comments-yet.png" class="w-25 h-25 mx-auto" alt="No comments yet">
+			{{/if}}
 		</ul>
 	</div>
 </div>
