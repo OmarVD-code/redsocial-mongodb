@@ -16,8 +16,7 @@ async function imageTotalViewsCounter(){
 		}
 	}]);
 
-	// return result[0].viewsTotal;
-	return 0;
+	return result[0].viewsTotal;
 }
 
 async function imageTotalLikesCounter(){
@@ -28,8 +27,8 @@ async function imageTotalLikesCounter(){
 		}
 	}]);
 
-	// return result[0].likesTotal;
-	return 0;
+	return result[0].likesTotal;
+
 }
 
 module.exports = async () => {
