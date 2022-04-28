@@ -1,4 +1,4 @@
-const { Image, Comment } = require('../models'); 
+const { Image, Comment } = require('../models');
 
 async function imageCounter(){
 	return await Image.countDocuments();
@@ -16,8 +16,8 @@ async function imageTotalViewsCounter(){
 		}
 	}]);
 
-	return result[0].viewsTotal;
-	// return 0;
+	// return result[0].viewsTotal;
+	return 0;
 }
 
 async function imageTotalLikesCounter(){
@@ -28,8 +28,8 @@ async function imageTotalLikesCounter(){
 		}
 	}]);
 
-	return result[0].likesTotal;
-	// return 0;
+	// return result[0].likesTotal;
+	return 0;
 }
 
 module.exports = async () => {
