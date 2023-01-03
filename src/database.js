@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config()
 const { database } = require('./keys.js');
 
 mongoose.connect(process.env.MONGODB_URI, {
