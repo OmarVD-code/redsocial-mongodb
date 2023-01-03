@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-require('dotenv').config()
-const { database } = require('./keys.js');
+// const { database } = require('./keys.js');
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect("mongodb+srv://omarvillarreal2000:mymongopass@cluster0.bu0gh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 })
