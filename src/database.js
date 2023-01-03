@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { database } = require('./keys.js');
 
-mongoose.connect(database.URI, {
+mongoose.connect(process.env.MONGODB_URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 })
