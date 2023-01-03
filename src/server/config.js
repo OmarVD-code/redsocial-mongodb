@@ -11,9 +11,11 @@ const multer = require('multer');
 const errorHandlers = require('errorhandler');
 const routes = require('../routes/index.js')
 
+require('dotenv').config()
+
 module.exports = app => {
 	// Settings
-	app.set('port', process.env.PORT || 3000);
+	app.set('port', process.env.PORT);
 	app.set('views', path.join(__dirname, '../views'));
 	app.engine('.hbs', exphbs({
 		defaultLayout: 'main',
